@@ -26,6 +26,8 @@ class IMListFavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        automaticallyAdjustsScrollViewInsets = false
+        
         loadData()
         setupPadding()
         
@@ -33,6 +35,11 @@ class IMListFavoritesViewController: UIViewController {
         myCollectionView.dataSource = self
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,7 +64,7 @@ class IMListFavoritesViewController: UIViewController {
         
         if let movieData = dataProvider.getFavoriteMovies(){
             movies = movieData
-            //myCollectionView
+            myCollectionView.reloadData()
         }
         
     }
@@ -134,6 +141,10 @@ extension IMListFavoritesViewController : UICollectionViewDelegate, UICollection
             cell.myImageMovie.kf.setImage(with: ImageResource(downloadURL: URL(string: imageData)!), placeholder: #imageLiteral(resourceName: "img-loading"), options: nil, progressBlock: nil, completionHandler: nil)
         }
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "detailSegue", sender: self)
     }
     
     

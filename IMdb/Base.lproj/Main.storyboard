@@ -160,6 +160,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="74l-bd-AJX"/>
                     <connections>
+                        <outlet property="myCollectionView" destination="sxH-5X-aVc" id="0Ue-6X-MFa"/>
                         <segue destination="Sy8-gQ-3zI" kind="show" identifier="detailSegue" id="Nho-W7-Efc"/>
                     </connections>
                 </viewController>
@@ -345,6 +346,6 @@
         <image name="ver-icon" width="25" height="10"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ukU-L2-u4d"/>
+        <segue reference="Nho-W7-Efc"/>
     </inferredMetricsTieBreakers>
 </document>

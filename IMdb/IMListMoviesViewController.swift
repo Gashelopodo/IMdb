@@ -180,6 +180,10 @@ extension IMListMoviesViewController : UICollectionViewDelegate, UICollectionVie
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "detailSegue", sender: self)
+    }
+    
     
     /****************************************** UICOLLECTION VIEW DELEGATE *****************************************************/
     

@@ -29,7 +29,7 @@ class LocalCoreDataService {
                     let obj = MovieModel(pId: c_movie["id"]!,
                                          pTitle: c_movie["title"],
                                          pOrder: nil,
-                                         pSummary: c_movie["sumary"]!,
+                                         pSummary: c_movie["summary"]!,
                                          pImage: c_movie["image"]!,
                                          pCategory: c_movie["category"]!,
                                          pDirector: c_movie["director"]!)
@@ -80,6 +80,8 @@ class LocalCoreDataService {
                 }
                 
                 //método de remover los no favoritos
+                self.removeAllnotFavorite()
+                
                 remoteHandler(self.queryTopMovies())
                 
                 
@@ -113,6 +115,8 @@ class LocalCoreDataService {
             for c_movie in fetchMovies{
                 movie.append(c_movie.mappedObj())
             }
+            
+            
             
             return movie
             
@@ -263,6 +267,10 @@ class LocalCoreDataService {
         
     }
     
+    func removeFavoriteMovie(_ movie : MovieModel){
+        
+    }
+    
     
     func updateFavoriteBadge(){
         if let totalFavoritos = getFavoriteMovies()?.count{
@@ -272,7 +280,31 @@ class LocalCoreDataService {
     }
     
     
-    
+    func removeAllnotFavorite(){
+        
+        let context = stack.persistentContainer.viewContext
+        let request : NSFetchRequest<MovieManager> = MovieManager.fetchRequest()
+        let customPredicate = NSPredicate(format: "favorito = \(false)")
+        request.predicate = customPredicate
+        
+        do {
+            let fetchMovies = try context.fetch(request)
+            
+            for c_movie in fetchMovies{
+                if !c_movie.sync{
+                    context.delete(c_movie)
+                }
+            }
+            try context.save()
+            
+        } catch  {
+            print("Error minetras se borra el coredata")
+            
+        }
+
+        
+        
+    }
     
     
     

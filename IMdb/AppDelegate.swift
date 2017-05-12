@@ -19,7 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         //Notification
-        //NotificationCenter.default.addObserver(self, selector: #selector(), name: <#T##NSNotification.Name?#>, object: <#T##Any?#>)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateBadge(_:)), name: Notification.Name("updateFaBadNot"), object: nil)
+        let dataProvider = LocalCoreDataService()
+        dataProvider.updateFavoriteBadge()
         
         personalizarUI()
         
@@ -68,6 +70,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    
+    
+    func updateBadge(_ notification : Notification){
+        
+        let tabBarVC = self.window?.rootViewController as! UITabBarController
+        let favNavVC = tabBarVC.viewControllers?.last as! UINavigationController
+        if let total = notification.object as? Int{
+            if total != 0{
+                favNavVC.tabBarItem.badgeValue = "\(total)"
+            }else{
+                favNavVC.tabBarItem.badgeValue = nil
+            }
+        }
+        
+        
+    }
     
     
 }
