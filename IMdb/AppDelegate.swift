@@ -18,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         
+        //Notification
+        //NotificationCenter.default.addObserver(self, selector: #selector(), name: <#T##NSNotification.Name?#>, object: <#T##Any?#>)
+        
         personalizarUI()
         
         

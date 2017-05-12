@@ -274,6 +274,9 @@
                                         <state key="normal" title="No me interesa" backgroundImage="btn-off">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="checkFavoriteACTION:" destination="Sy8-gQ-3zI" eventType="touchUpInside" id="rA6-Gf-i4k"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.23137254901960785" green="0.23137254901960785" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
@@ -321,6 +324,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="b3x-C3-5Yy"/>
+                    <connections>
+                        <outlet property="myButtonSelectedFavoriteMovie" destination="MSk-vM-2k1" id="Nn3-8H-AuH"/>
+                        <outlet property="myCategoryMovie" destination="UiY-Jq-8WJ" id="FgU-B4-Pu7"/>
+                        <outlet property="myDirectorMovie" destination="cAT-H2-SGb" id="bU0-Ll-ehP"/>
+                        <outlet property="myImageViewMovie" destination="hdE-fC-Erg" id="icf-Dw-dhT"/>
+                        <outlet property="mySummaryMovie" destination="Gb6-Kf-afZ" id="BcM-xF-Fpi"/>
+                        <outlet property="myTitleMovie" destination="e5Y-zj-Qs4" id="63W-PD-w8t"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KwT-AH-ziH" sceneMemberID="firstResponder"/>
             </objects>

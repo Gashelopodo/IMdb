@@ -201,6 +201,82 @@ class LocalCoreDataService {
 
     }
     
+    func isMovieFavorite(_ movie : MovieModel) -> Bool{
+        
+        if let _ = getMovieById(movie.id!, favorito: true){
+            return true
+        }else{
+            return false
+        }
+        
+    }
+    
+    func markUnMarkFavorite(_ movie : MovieModel){
+        let context = stack.persistentContainer.viewContext
+        if let existe = getMovieById(movie.id!, favorito: true){
+            context.delete(existe)
+        }else{
+            let favorito = MovieManager(context: context)
+            favorito.id = movie.id!
+            favorito.title = movie.title!
+            favorito.summary = movie.summary!
+            favorito.category = movie.category!
+            favorito.director = movie.director!
+            favorito.image = movie.image!
+            favorito.favorito = true
+            
+            do {
+                try context.save()
+            } catch {
+                print("Error mientras marcamos favorito")
+            }
+            
+            
+            //actualizar el badge en el tapBar en donde le avisaremos al usuario cuantas peliculas tiene como favoritas
+            updateFavoriteBadge()
+        }
+    }
+    
+    func getFavoriteMovies() -> [MovieModel]?{
+        
+        let context = stack.persistentContainer.viewContext
+        let request : NSFetchRequest<MovieManager> = MovieManager.fetchRequest()
+        
+        let customPredicate = NSPredicate(format: "favorito = \(true)")
+        request.predicate = customPredicate
+        
+        do {
+            let fetchMovies = try context.fetch(request)
+            var movies = [MovieModel]()
+            
+            for c_movieData in fetchMovies{
+                movies.append(c_movieData.mappedObj())
+            }
+            
+            return movies
+            
+        } catch  {
+            print("Error minetras obtenemos favoritos")
+            return nil
+        }
+        
+        
+    }
+    
+    
+    func updateFavoriteBadge(){
+        if let totalFavoritos = getFavoriteMovies()?.count{
+            let customNotification = Notification(name: Notification.Name("updateFaBadNot"), object: totalFavoritos, userInfo: nil)
+            NotificationCenter.default.post(customNotification)
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     
     
     

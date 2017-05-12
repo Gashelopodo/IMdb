@@ -104,7 +104,19 @@ class IMListMoviesViewController: UIViewController {
     }
     
     func hideKeyboard(){
-        
+        mySearch.resignFirstResponder()
+        self.view.removeGestureRecognizer(tapGR)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "detailSegue"{
+            if let indexPathSelected = myCollectionView.indexPathsForSelectedItems?.last{
+                let selectedMovie = movies[indexPathSelected.row]
+                let detalleVC = segue.destination as! IMDetailMovieViewController
+                detalleVC.movie = selectedMovie
+            }
+        }
     }
 
 }
@@ -113,6 +125,12 @@ class IMListMoviesViewController: UIViewController {
 //MARK: - extención de collection delegate
 
 extension IMListMoviesViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate{
+    
+    
+    
+    
+    /****************************************** UICOLLECTION VIEW DELEGATE *****************************************************/
+
     
     func setupPadding(){
         let anchoPantalla = self.view.frame.width
@@ -198,6 +216,8 @@ extension IMListMoviesViewController : UICollectionViewDelegate, UICollectionVie
             })
         }
     }
+    
+    
     
     
     
